@@ -17,9 +17,15 @@ run = "astro dev"
 [tasks.build]
 run = "astro build"
 
+[tasks.clean]
+run = ["rm -rf .astro", "rm -rf dist", "rm -rf .wrangler"]
+
 [tasks.preview]
 run = "wrangler dev ./dist/_worker.js"
 depends = ["build"]
+
+[tasks."last-deployment"]
+run = "wrangler pages deployment list"
 
 [tasks.test]
 run = "vitest"
@@ -29,3 +35,6 @@ run = "vitest --ui"
 
 [tasks."test:coverage"]
 run = "vitest --coverage"
+
+[tasks."open:deployment"]
+run = "open https://dash.cloudflare.com/${CLOUDFLARE_ACCOUNT_ID}/workers/services/view/abstract-industries/production/metrics"

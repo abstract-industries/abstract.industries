@@ -1,6 +1,5 @@
 import { defineAction, ActionError } from 'astro:actions';
 import { z } from 'astro:schema';
-import { createRateLimiter } from '../utils/rateLimiter';
 
 export const server = {
   signup: defineAction({
@@ -13,15 +12,11 @@ export const server = {
         const { email } = input;
 
         // Access Cloudflare bindings from locals
-        const { EMAIL_QUEUE, EMAIL_STORE } = context.locals.runtime.env;
+        const { EMAIL_STORE } = context.locals.runtime.env;
 
         const clientIP = context.request.headers.get('CF-Connecting-IP') || 'unknown';
 
-        // Rate limiting check
-        const rateLimiter = createRateLimiter(EMAIL_STORE);
-        await rateLimiter.enforceRateLimit(clientIP);
-
-        // Check if email already exists in KV store (optional)
+        // Check if email already exists in KV store
         if (EMAIL_STORE) {
           const existingEmail = await EMAIL_STORE.get(email);
           if (existingEmail) {
@@ -33,7 +28,7 @@ export const server = {
           }
         }
 
-        // Prepare email data for queue
+        // Prepare email data for storage
         const emailData = {
           email,
           timestamp: new Date().toISOString(),
@@ -42,23 +37,18 @@ export const server = {
           source: 'works-page-signup'
         };
 
-        // Send to Cloudflare Queue
-        if (!EMAIL_QUEUE) {
+        // Store email in KV store
+        if (!EMAIL_STORE) {
           throw new ActionError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: 'Email queue not configured'
+            message: 'Email store not configured'
           });
         }
 
-        await EMAIL_QUEUE.send(emailData);
-
-        // Store email in KV store for duplicate checking (optional)
-        if (EMAIL_STORE) {
-          await EMAIL_STORE.put(email, JSON.stringify({
-            ...emailData,
-            status: 'queued'
-          }));
-        }
+        await EMAIL_STORE.put(email, JSON.stringify({
+          ...emailData,
+          status: 'stored'
+        }));
 
         return {
           success: true,

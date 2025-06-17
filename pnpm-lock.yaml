@@ -28,8 +28,8 @@ importers:
         specifier: ^3.2.3
         version: 3.2.3(vitest@3.2.3)
       alchemy:
-        specifier: ^0.31.0
-        version: 0.31.0(@ai-sdk/openai-compatible@0.2.14(zod@3.25.64))(@ai-sdk/openai@1.3.22(zod@3.25.64))(@aws-sdk/client-dynamodb@3.830.0)(@aws-sdk/client-iam@3.830.0)(@aws-sdk/client-lambda@3.830.0)(@aws-sdk/client-s3@3.830.0)(@aws-sdk/client-sagemaker@3.830.0)(@aws-sdk/client-ses@3.830.0)(@aws-sdk/client-sesv2@3.830.0)(@aws-sdk/client-sqs@3.830.0)(@aws-sdk/client-ssm@3.830.0)(@aws-sdk/client-sts@3.830.0)(@octokit/rest@21.1.1)(@swc/helpers@0.5.17)(ai@4.3.16(react@19.1.0)(zod@3.25.64))(arktype@2.1.20)(cloudflare@4.4.1)(dofs@0.0.1(hono@4.7.11))(hono@4.7.11)(prettier@3.5.3)(stripe@17.7.0)(workerd@1.20250604.0)(zod@3.25.64)
+        specifier: ^0.32.1
+        version: 0.32.1(@ai-sdk/openai-compatible@0.2.14(zod@3.25.64))(@ai-sdk/openai@1.3.22(zod@3.25.64))(@aws-sdk/client-dynamodb@3.830.0)(@aws-sdk/client-iam@3.830.0)(@aws-sdk/client-lambda@3.830.0)(@aws-sdk/client-s3@3.830.0)(@aws-sdk/client-sagemaker@3.830.0)(@aws-sdk/client-ses@3.830.0)(@aws-sdk/client-sesv2@3.830.0)(@aws-sdk/client-sqs@3.830.0)(@aws-sdk/client-ssm@3.830.0)(@aws-sdk/client-sts@3.830.0)(@octokit/rest@21.1.1)(@swc/helpers@0.5.17)(ai@4.3.16(react@19.1.0)(zod@3.25.64))(arktype@2.1.20)(cloudflare@4.4.1)(dofs@0.0.1(hono@4.7.11))(hono@4.7.11)(prettier@3.5.3)(stripe@17.7.0)(workerd@1.20250604.0)(zod@3.25.64)
       tsx:
         specifier: ^4.20.3
         version: 4.20.3
@@ -1546,8 +1546,8 @@ packages:
       react:
         optional: true
 
-  alchemy@0.31.0:
-    resolution: {integrity: sha512-v7BbggOS+KOvuT0A+e2EQIGklK5xyC8a7XQ/dMNZHOSQn0fAZFoxk0AOfFWgsVT1tw04CIK/n3C57O7fBcOcyQ==}
+  alchemy@0.32.1:
+    resolution: {integrity: sha512-+5DdmyycDCNDHBBmkuaWXiROeHY0xqJ9GRzjnY1fylaZ63nyGD+y7lSQAP9kuzvwsOVy/l2MNJozOsJguIti7w==}
     hasBin: true
     peerDependencies:
       '@ai-sdk/openai': ^1.1.9
@@ -5441,7 +5441,7 @@ snapshots:
     optionalDependencies:
       react: 19.1.0
 
-  alchemy@0.31.0(@ai-sdk/openai-compatible@0.2.14(zod@3.25.64))(@ai-sdk/openai@1.3.22(zod@3.25.64))(@aws-sdk/client-dynamodb@3.830.0)(@aws-sdk/client-iam@3.830.0)(@aws-sdk/client-lambda@3.830.0)(@aws-sdk/client-s3@3.830.0)(@aws-sdk/client-sagemaker@3.830.0)(@aws-sdk/client-ses@3.830.0)(@aws-sdk/client-sesv2@3.830.0)(@aws-sdk/client-sqs@3.830.0)(@aws-sdk/client-ssm@3.830.0)(@aws-sdk/client-sts@3.830.0)(@octokit/rest@21.1.1)(@swc/helpers@0.5.17)(ai@4.3.16(react@19.1.0)(zod@3.25.64))(arktype@2.1.20)(cloudflare@4.4.1)(dofs@0.0.1(hono@4.7.11))(hono@4.7.11)(prettier@3.5.3)(stripe@17.7.0)(workerd@1.20250604.0)(zod@3.25.64):
+  alchemy@0.32.1(@ai-sdk/openai-compatible@0.2.14(zod@3.25.64))(@ai-sdk/openai@1.3.22(zod@3.25.64))(@aws-sdk/client-dynamodb@3.830.0)(@aws-sdk/client-iam@3.830.0)(@aws-sdk/client-lambda@3.830.0)(@aws-sdk/client-s3@3.830.0)(@aws-sdk/client-sagemaker@3.830.0)(@aws-sdk/client-ses@3.830.0)(@aws-sdk/client-sesv2@3.830.0)(@aws-sdk/client-sqs@3.830.0)(@aws-sdk/client-ssm@3.830.0)(@aws-sdk/client-sts@3.830.0)(@octokit/rest@21.1.1)(@swc/helpers@0.5.17)(ai@4.3.16(react@19.1.0)(zod@3.25.64))(arktype@2.1.20)(cloudflare@4.4.1)(dofs@0.0.1(hono@4.7.11))(hono@4.7.11)(prettier@3.5.3)(stripe@17.7.0)(workerd@1.20250604.0)(zod@3.25.64):
     dependencies:
       '@ai-sdk/openai': 1.3.22(zod@3.25.64)
       '@ai-sdk/openai-compatible': 0.2.14(zod@3.25.64)
