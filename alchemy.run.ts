@@ -21,11 +21,6 @@ export const worker = await Astro("abstract-industries", {
   }
 });
 
-// Generate wrangler config
-await WranglerJson("wrangler.jsonc", {
-  worker,
-});
-
 console.log({
   url: worker.url,
 });

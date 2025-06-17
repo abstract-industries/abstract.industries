@@ -18,7 +18,8 @@ run = "astro dev"
 run = "astro build"
 
 [tasks.preview]
-run = "astro preview"
+run = "wrangler dev ./dist/_worker.js"
+depends = ["build"]
 
 [tasks.test]
 run = "vitest"
