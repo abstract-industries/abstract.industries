@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import NavLinks from "../components/NavLinks.astro";
 ---
 
 <Layout>
@@ -85,12 +86,7 @@ import Layout from "../layouts/Layout.astro";
           </defs>
         </svg>
       </a>
-      <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/works">Work</a>
-        <a href="/about" class="active">About</a>
-        <a href="#contact">Contact</a>
-      </div>
+      <NavLinks currentPath="/about" />
     </nav>
 
     <!-- Main Content -->
@@ -157,15 +153,6 @@ import Layout from "../layouts/Layout.astro";
 </Layout>
 
 <style>
-  :root {
-    --primary: #ff0080;
-    --secondary: #00ff80;
-    --accent: #8000ff;
-    --dark: #0a0a0a;
-    --light: #ffffff;
-    --gray: #666666;
-  }
-
   .about-hero {
     position: relative;
     min-height: 100vh;
@@ -231,40 +218,6 @@ import Layout from "../layouts/Layout.astro";
 
   .logo svg {
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 2rem;
-  }
-
-  .nav-links a {
-    color: var(--light);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
-    position: relative;
-  }
-
-  .nav-links a:hover,
-  .nav-links a.active {
-    color: var(--primary);
-  }
-
-  .nav-links a::after {
-    content: "";
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--primary);
-    transition: width 0.3s ease;
-  }
-
-  .nav-links a:hover::after,
-  .nav-links a.active::after {
-    width: 100%;
   }
 
   /* Main Content */
@@ -417,10 +370,6 @@ import Layout from "../layouts/Layout.astro";
   @media (max-width: 768px) {
     .nav {
       padding: 1.5rem 2rem;
-    }
-
-    .nav-links {
-      gap: 1.5rem;
     }
 
     .content {

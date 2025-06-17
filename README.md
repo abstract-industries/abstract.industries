@@ -1,48 +1,71 @@
-# Astro Starter Kit: Basics
+# Abstract Industries
 
-```sh
-npm create astro@latest -- --template basics
+A modern portfolio website built with Astro and Cloudflare Workers.
+
+## Features
+
+- **Email Signup Form**: Powered by [Astro Actions](https://docs.astro.build/en/guides/actions/) with Cloudflare Queue integration
+- **Modern UI**: Clean, responsive design with animated backgrounds
+- **Serverless**: Built for Cloudflare Pages with queue processing
+
+## Setup
+
+### 1. Install mise
+
+[Mise](https://mise.jdx.dev/) is used to manage tool versions and dependencies. Install it first:
+
+```bash
+curl https://mise.jdx.dev/install.sh | sh
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+Then install the project dependencies:
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+```bash
+mise install
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+### 2. Configure Cloudflare
 
-## 🧞 Commands
+Login to Cloudflare:
+```bash
+wrangler login
+```
 
-All commands are run from the root of the project, from a terminal:
+### 3. Update Configuration
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+After running the setup script, update the KV namespace IDs in `wrangler.jsonc`:
 
-## 👀 Want to learn more?
+1. Get your namespace IDs: `wrangler kv:namespace list`
+2. Update the `kv_namespaces` section with the actual IDs
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+### 4. Development
+
+```bash
+mise run dev
+```
+
+The email signup form will now:
+- Validate email addresses using Zod
+- Send email data to Cloudflare Queue
+- Store emails in KV store for duplicate prevention
+- Show success/error messages
+
+### 5. Deploy
+
+```bash
+mise run build
+wrangler pages deploy dist
+```
+
+## Email Processing
+
+The signup form sends emails to a Cloudflare Queue. You'll need to create a separate worker project to consume and process these emails (send to email service, database, etc.).
+
+## Technologies
+
+- [Astro](https://astro.build/) - Static site generator
+- [Astro Actions](https://docs.astro.build/en/guides/actions/) - Server-side form handling
+- [Cloudflare Pages](https://pages.cloudflare.com/) - Hosting
+- [Cloudflare Queues](https://developers.cloudflare.com/queues/) - Email processing queue
+- [Cloudflare KV](https://developers.cloudflare.com/kv/) - Email storage
+- [Tailwind CSS](https://tailwindcss.com/) - Styling

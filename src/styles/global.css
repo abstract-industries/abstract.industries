@@ -1,2 +1,11 @@
 @import "tailwindcss";
-@plugin "daisyui";
+
+/* Global CSS Custom Properties */
+:root {
+  --primary: #ff0080;
+  --secondary: #00ff80;
+  --accent: #8000ff;
+  --dark: #0a0a0a;
+  --light: #ffffff;
+  --gray: #666666;
+}

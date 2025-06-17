@@ -1,5 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import NavLinks from "../components/NavLinks.astro";
+import { actions } from "astro:actions";
+
+// Handle form submission result
+const result = Astro.getActionResult(actions.signup);
 ---
 
 <Layout>
@@ -85,19 +90,18 @@ import Layout from "../layouts/Layout.astro";
           </defs>
         </svg>
       </a>
-      <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/works" class="active">Work</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </div>
+      <NavLinks currentPath="/works" />
     </nav>
 
     <!-- Main Content -->
     <div class="content">
       <div class="works-text">
         <h1 class="main-title">COMING SOON</h1>
-        <p class="subtitle">We're crafting something extraordinary</p>
+        <p class="subtitle">
+          We're crafting something <span class="extraordinary"
+            >extraordinary</span
+          >
+        </p>
         <p class="description">
           Our portfolio is currently under construction. We'll let you know when
           there's something amazing to show.
@@ -106,18 +110,36 @@ import Layout from "../layouts/Layout.astro";
         <!-- Email Signup -->
         <div class="email-signup">
           <h3 class="signup-title">Get notified when we launch</h3>
-          <form class="signup-form">
+          <form class="signup-form" method="POST" action={actions.signup}>
             <input
               type="email"
+              name="email"
               placeholder="Enter your email address"
               class="email-input"
               required
             />
-            <button type="submit" class="signup-btn">Notify Me</button>
+            <button type="submit" class="signup-btn"> Notify Me </button>
           </form>
-          <p class="signup-note">
-            We'll only email you when we have something worth sharing.
-          </p>
+
+          {
+            result?.error && (
+              <p class="signup-note error">{result.error.message}</p>
+            )
+          }
+
+          {
+            result?.data && (
+              <p class="signup-note success">{result.data.message}</p>
+            )
+          }
+
+          {
+            !result && (
+              <p class="signup-note">
+                We'll only email you when we have something worth sharing.
+              </p>
+            )
+          }
         </div>
       </div>
     </div>
@@ -130,15 +152,6 @@ import Layout from "../layouts/Layout.astro";
 </Layout>
 
 <style>
-  :root {
-    --primary: #ff0080;
-    --secondary: #00ff80;
-    --accent: #8000ff;
-    --dark: #0a0a0a;
-    --light: #ffffff;
-    --gray: #666666;
-  }
-
   .works-hero {
     position: relative;
     min-height: 100vh;
@@ -206,40 +219,6 @@ import Layout from "../layouts/Layout.astro";
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
   }
 
-  .nav-links {
-    display: flex;
-    gap: 2rem;
-  }
-
-  .nav-links a {
-    color: var(--light);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
-    position: relative;
-  }
-
-  .nav-links a:hover,
-  .nav-links a.active {
-    color: var(--primary);
-  }
-
-  .nav-links a::after {
-    content: "";
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--primary);
-    transition: width 0.3s ease;
-  }
-
-  .nav-links a:hover::after,
-  .nav-links a.active::after {
-    width: 100%;
-  }
-
   /* Main Content */
   .content {
     flex: 1;
@@ -288,6 +267,97 @@ import Layout from "../layouts/Layout.astro";
     margin: 0 0 2rem 0;
     color: #cccccc;
     font-style: italic;
+  }
+
+  /* Extraordinary sparkle and glow effect */
+  .extraordinary {
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(45deg, #ffd700, #ffed4a, #f39c12);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: #ffd700; /* golden fallback */
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    animation: glow 2s ease-in-out infinite alternate;
+    padding-right: 4px;
+  }
+
+  @supports (-webkit-background-clip: text) or (background-clip: text) {
+    .extraordinary {
+      color: transparent;
+    }
+  }
+
+  /* Glow animation */
+  @keyframes glow {
+    from {
+      filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8))
+        drop-shadow(0 0 15px rgba(255, 193, 7, 0.6))
+        drop-shadow(0 0 25px rgba(255, 165, 0, 0.4));
+    }
+    to {
+      filter: drop-shadow(0 0 15px rgba(255, 215, 0, 1))
+        drop-shadow(0 0 25px rgba(255, 193, 7, 0.8))
+        drop-shadow(0 0 40px rgba(255, 165, 0, 0.6));
+    }
+  }
+
+  /* Sparkle effects */
+  .extraordinary::before,
+  .extraordinary::after {
+    content: "";
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #ffd700;
+    border-radius: 50%;
+    opacity: 0;
+    animation: sparkle 3s linear infinite;
+    box-shadow: 0 0 6px rgba(255, 215, 0, 0.8);
+  }
+
+  .extraordinary::before {
+    top: -8px;
+    left: 20%;
+    animation-delay: 0s;
+  }
+
+  .extraordinary::after {
+    bottom: -8px;
+    right: 25%;
+    animation-delay: 1.5s;
+  }
+
+  /* Additional sparkles */
+  .extraordinary {
+    overflow: visible;
+  }
+
+  .extraordinary:hover::before {
+    animation: sparkle 1s linear infinite;
+  }
+
+  .extraordinary:hover::after {
+    animation: sparkle 1s linear infinite;
+    animation-delay: 0.5s;
+  }
+
+  @keyframes sparkle {
+    0%,
+    100% {
+      opacity: 0;
+      transform: scale(0) rotate(0deg);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1) rotate(180deg);
+    }
+  }
+
+  /* More sparkles with pseudo-elements simulation */
+  .extraordinary:hover {
+    animation: glow 1s ease-in-out infinite alternate;
   }
 
   .description {
@@ -391,14 +461,21 @@ import Layout from "../layouts/Layout.astro";
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
   }
 
+  /* Form feedback states */
+  .signup-note.success {
+    color: var(--secondary);
+    font-weight: 500;
+  }
+
+  .signup-note.error {
+    color: var(--primary);
+    font-weight: 500;
+  }
+
   /* Responsive Design */
   @media (max-width: 768px) {
     .nav {
       padding: 1.5rem 2rem;
-    }
-
-    .nav-links {
-      gap: 1.5rem;
     }
 
     .content {

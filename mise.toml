@@ -1,2 +1,29 @@
 [tools]
 pnpm = "10.12.1"
+
+[env]
+_.path = "node_modules/.bin"
+
+[tasks."gen:types"]
+run = "wrangler types"
+
+[tasks.dev]
+run = "astro dev"
+depends = ["gen:types"]
+
+[tasks.build]
+run = "astro build"
+depends = ["gen:types"]
+
+[tasks.preview]
+run = "astro preview"
+depends = ["gen:types"]
+
+[tasks.test]
+run = "vitest"
+
+[tasks."test:ui"]
+run = "vitest --ui"
+
+[tasks."test:coverage"]
+run = "vitest --coverage"

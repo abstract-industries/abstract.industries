@@ -1,0 +1,77 @@
+---
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath } = Astro.props;
+
+// Navigation items with their paths and labels
+const navItems = [
+  { href: "/", label: "Home" },
+  { href: "/works", label: "Work" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
+];
+
+// Function to determine if a link should be active
+function isActive(href: string, currentPath: string = ""): boolean {
+  if (href === "/" && currentPath === "/") return true;
+  if (href !== "/" && currentPath.startsWith(href)) return true;
+  return false;
+}
+---
+
+<div class="nav-links">
+  {
+    navItems.map((item) => (
+      <a
+        href={item.href}
+        class={isActive(item.href, currentPath) ? "active" : ""}
+      >
+        {item.label}
+      </a>
+    ))
+  }
+</div>
+<style>
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .nav-links a {
+    color: var(--light);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: var(--primary);
+  }
+
+  .nav-links a::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.3s ease;
+  }
+
+  .nav-links a:hover::after,
+  .nav-links a.active::after {
+    width: 100%;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .nav-links {
+      gap: 1.5rem;
+    }
+  }
+</style>

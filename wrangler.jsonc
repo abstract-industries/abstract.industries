@@ -1,0 +1,24 @@
+{
+  "name": "abstract-industries",
+  "compatibility_date": "2024-01-01",
+  "compatibility_flags": ["nodejs_compat"],
+  
+  // Queue configuration for email signups
+  "queues": {
+    "producers": [
+      {
+        "queue": "ai-email-signup",
+        "binding": "EMAIL_QUEUE"
+      }
+    ]
+  },
+
+  // KV namespace for storing emails (optional)
+  "kv_namespaces": [
+    {
+      "binding": "EMAIL_STORE",
+      "id": "ai-email-seen",
+      "preview_id": "email_store_preview"
+    }
+  ]
+} 
