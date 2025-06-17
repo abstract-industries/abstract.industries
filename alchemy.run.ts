@@ -4,10 +4,7 @@ import { Astro, Queue, KVNamespace, WranglerJson } from "alchemy/cloudflare";
 const app = await alchemy("abstract-industries");
 
 // Create queue for email signups
-export const emailQueue = await Queue<{
-  email: string;
-  timestamp?: number;
-}>("email-queue", {
+export const emailQueue = await Queue("email-queue", {
   name: "ai-email-signup"
 });
 
