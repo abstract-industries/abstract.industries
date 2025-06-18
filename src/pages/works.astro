@@ -1,11 +1,8 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import NavLinks from "../components/NavLinks.astro";
-import Logo from "../components/Logo.astro";
 import { actions } from "astro:actions";
 
 // Handle form submission result
-const result = Astro.getActionResult(actions.signup);
+const _result = Astro.getActionResult(actions.signup);
 ---
 
 <Layout>
