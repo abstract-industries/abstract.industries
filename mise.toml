@@ -27,6 +27,18 @@ run = "astro build"
 [tasks.clean]
 run = ["rm -rf .astro", "rm -rf dist", "rm -rf .wrangler"]
 
+[tasks.fmt]
+run = "biome check --write --unsafe ."
+
+[tasks.verify]
+depends = ["typecheck", "lint", "test run"]
+
+[tasks.typecheck]
+run = "tsc --noEmit"
+
+[tasks.lint]
+run = "biome check ."
+
 [tasks.preview]
 run = "wrangler dev ./dist/_worker.js"
 depends = ["build"]

@@ -1,23 +1,23 @@
 ---
 interface Props {
-  currentPath?: string;
+	currentPath?: string;
 }
 
 const { currentPath } = Astro.props;
 
 // Navigation items with their paths and labels
 const navItems = [
-  { href: "/", label: "Home" },
-  { href: "/works", label: "Work" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+	{ href: "/", label: "Home" },
+	{ href: "/works", label: "Work" },
+	{ href: "/about", label: "About" },
+	{ href: "/contact", label: "Contact" },
 ];
 
 // Function to determine if a link should be active
 function isActive(href: string, currentPath: string = ""): boolean {
-  if (href === "/" && currentPath === "/") return true;
-  if (href !== "/" && currentPath.startsWith(href)) return true;
-  return false;
+	if (href === "/" && currentPath === "/") return true;
+	if (href !== "/" && currentPath.startsWith(href)) return true;
+	return false;
 }
 ---
 
