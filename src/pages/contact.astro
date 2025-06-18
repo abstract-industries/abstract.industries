@@ -2,6 +2,9 @@
 import Layout from "../layouts/Layout.astro";
 import NavLinks from "../components/NavLinks.astro";
 import Logo from "../components/Logo.astro";
+import { actions } from "astro:actions";
+
+const result = Astro.getActionResult(actions.contact);
 ---
 
 <Layout>
@@ -24,7 +27,23 @@ import Logo from "../components/Logo.astro";
 
         <!-- Contact Form -->
         <div class="contact-form-container">
-          <form class="contact-form">
+          {
+            result?.error && (
+              <div class="form-message error">
+                <p>{result.error.message}</p>
+              </div>
+            )
+          }
+
+          {
+            result?.data?.success && (
+              <div class="form-message success">
+                <p>{result.data.message}</p>
+              </div>
+            )
+          }
+
+          <form class="contact-form" method="POST" action={actions.contact}>
             <div class="form-row">
               <div class="form-group">
                 <label for="name">Name</label>
@@ -291,6 +310,30 @@ import Logo from "../components/Logo.astro";
   .submit-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(255, 0, 128, 0.4);
+  }
+
+  /* Form Messages */
+  .form-message {
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+
+  .form-message.success {
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: #22c55e;
+  }
+
+  .form-message.error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+  }
+
+  .form-message p {
+    margin: 0;
   }
 
   /* Bottom Info */
