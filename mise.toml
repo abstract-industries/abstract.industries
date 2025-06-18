@@ -1,5 +1,12 @@
 [tools]
+node = "22.15.0"
 pnpm = "10.12.1"
+
+[hooks]
+postinstall = "pnpm install"
+
+[settings]
+experimental = true # Enabled to allow hooks
 
 [env]
 _.path = "node_modules/.bin"
@@ -38,3 +45,6 @@ run = "vitest --coverage"
 
 [tasks."open:deployment"]
 run = "open https://dash.cloudflare.com/${CLOUDFLARE_ACCOUNT_ID}/workers/services/view/abstract-industries/production/metrics"
+
+[tasks.logs]
+run = "wrangler tail abstract-industries"
