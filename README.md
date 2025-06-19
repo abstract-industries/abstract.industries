@@ -1,6 +1,6 @@
 # Abstract Industries
 
-A portfolio website for our Brooklyn based engineering collective. 
+A portfolio website for our engineering and design collective. 
 
 ## Setup
 
